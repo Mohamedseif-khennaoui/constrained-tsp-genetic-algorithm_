@@ -28,7 +28,9 @@ A comprehensive research implementation comparing local search (Hill Climbing) a
 
 In artificial intelligence and computer science, the complexity of computation and the quality of algorithms are fundamental evaluation criteria. For NP-hard problems such as the Traveling Salesman Problem (TSP), obtaining exact solutions within polynomial time is often impractical. This research explores heuristic methods to obtain approximate solutions with reasonable computational complexity.
 
-![TSP Problem Illustration](results/figures/tsp.PNG)
+<div align="center">
+  <img src="results/figures/tsp.PNG" alt="TSP Problem Illustration" width="500"/>
+</div>
 
 This project investigates two distinct approaches:
 - **Local Search Method:** Hill Climbing Algorithm
@@ -68,7 +70,9 @@ d(i,j) = √[(x_i - x_j)² + (y_i - y_j)²]
 Total Distance = Σ d(city_i, city_{i+1})
 ```
 
-![Problem Space Representation](results/figures/graph%20representation.PNG)
+<div align="center">
+  <img src="results/figures/graph%20representation.PNG" alt="Problem Space Representation" width="500"/>
+</div>
 
 The graph representation shows cities as nodes with edges only between cities within the 90 km distance constraint, creating a sparse graph structure while maintaining NP-hard complexity.
 
@@ -84,7 +88,9 @@ The problem space is represented by a function that:
 3. Creates edges only between cities with distance < 90 km
 4. Outputs a constrained graph structure
 
-![Random Generated Cycle Example](results/figures/random%20generated%20cycle.PNG)
+<div align="center">
+  <img src="results/figures/random%20generated%20cycle.PNG" alt="Random Generated Cycle Example" width="500"/>
+</div>
 
 A state in this problem is defined as a cycle of 100 unique nodes (cities), ensuring all cities are visited exactly once.
 
@@ -166,7 +172,9 @@ Tour: 1 → 4 → 8 → 2 → 5 → 3 → 6 → 7 → 1
 Representation: (1, 4, 8, 2, 5, 3, 6, 7, 1)
 ```
 
-![Genetic Representation](results/figures/genetic%20represantation.PNG)
+<div align="center">
+  <img src="results/figures/genetic%20represantation.PNG" alt="Genetic Representation" width="500"/>
+</div>
 
 #### Fitness Function
 
@@ -222,13 +230,19 @@ where nodes 3 and 8 have the same neighbors
 - Current Solution: 11,681 km
 - Execution Time: 688.23 ms
 
-![Hill Climbing Training Progress](results/figures/train_hill_climbing.PNG)
+<div align="center">
+  <img src="results/figures/train_hill_climbing.PNG" alt="Hill Climbing Training Progress" width="600"/>
+</div>
 
-![Hill Climbing Evolution](results/figures/train_evolution_hill.PNG)
+<div align="center">
+  <img src="results/figures/train_evolution_hill.PNG" alt="Hill Climbing Evolution" width="600"/>
+</div>
 
 The evolution plot shows rapid initial improvement followed by convergence to a local optimum around iteration 200.
 
-![Hill Climbing Best Solution](results/figures/best_solution_hill.PNG)
+<div align="center">
+  <img src="results/figures/best_solution_hill.PNG" alt="Hill Climbing Best Solution" width="500"/>
+</div>
 
 ### Genetic Algorithm Results
 
@@ -242,9 +256,13 @@ The evolution plot shows rapid initial improvement followed by convergence to a 
 - Current Solution: 5,954 km
 - Execution Time: 38,141.99 ms
 
-![Genetic Algorithm Training Progress](results/figures/train_best_solution%20genetic.PNG)
+<div align="center">
+  <img src="results/figures/train_best_solution%20genetic.PNG" alt="Genetic Algorithm Training Progress" width="600"/>
+</div>
 
-![Population Fitness per Generation](results/figures/population%20fit%20gen.PNG)
+<div align="center">
+  <img src="results/figures/population%20fit%20gen.PNG" alt="Population Fitness per Generation" width="600"/>
+</div>
 
 The GA demonstrates steady improvement throughout execution, successfully converging to a solution of 5,954 km with the best observed solution at 5,208 km.
 
@@ -306,53 +324,15 @@ pip install -r requirements.txt
 
 ### Usage Examples
 
-#### Hill Climbing
+#### Running the Jupyter Notebook
 
-```python
-from src.hill_climbing import HillClimbing
-from src.utils import generate_cities, create_graph
+The main implementation is contained in `src/FAI-LABFINAL-checkpoint.ipynb`. Open it with Jupyter Notebook or JupyterLab:
 
-# Generate problem instance
-cities = generate_cities(n_cities=100, space_size=500)
-graph = create_graph(cities, max_distance=90)
-
-# Run Hill Climbing
-hc = HillClimbing(graph, max_iterations=1000)
-solution, cost = hc.run()
-
-print(f"Best solution cost: {cost} km")
+```bash
+jupyter notebook src/FAI-LABFINAL-checkpoint.ipynb
 ```
 
-#### Genetic Algorithm
-
-```python
-from src.genetic_algorithm import GeneticAlgorithm
-from src.utils import generate_cities, create_graph
-
-# Generate problem instance
-cities = generate_cities(n_cities=100, space_size=500)
-graph = create_graph(cities, max_distance=90)
-
-# Run Genetic Algorithm
-ga = GeneticAlgorithm(
-    graph,
-    population_size=50,
-    max_generations=300,
-    mutation_rate=0.2
-)
-solution, cost = ga.run()
-
-print(f"Best solution cost: {cost} km")
-```
-
-#### Loading Custom Data
-
-```python
-from src.utils import load_cities
-
-cities = load_cities('data/cities_100.txt')
-# Format: each line contains "x_coordinate y_coordinate"
-```
+The notebook contains complete implementations of both Hill Climbing and Genetic Algorithm approaches with visualizations and comparative analysis.
 
 ---
 
@@ -360,42 +340,34 @@ cities = load_cities('data/cities_100.txt')
 
 ```
 constrained-tsp-heuristics/
-├── src/
-│   ├── __init__.py
-│   ├── hill_climbing.py          # Hill Climbing implementation
-│   ├── genetic_algorithm.py      # Genetic Algorithm implementation
-│   ├── utils.py                   # Utility functions
-│   ├── evaluation.py              # Fitness/evaluation functions
-│   └── visualization.py           # Plotting and visualization
 ├── data/
-│   ├── cities_100.txt             # Sample city coordinates
-│   └── test_instances/            # Additional test cases
+│   └── .gitkeep
+├── docs/
+│   ├── .gitkeep
+│   └── report.pdf                 # Full research report
+├── experiments/
+│   └── .gitkeep
 ├── results/
 │   ├── figures/                   # Generated plots and visualizations
-│   │   ├── tsp.PNG
-│   │   ├── graph representation.PNG
-│   │   ├── random generated cycle.PNG
-│   │   ├── train_hill_climbing.PNG
-│   │   ├── train_evolution_hill.PNG
+│   │   ├── .gitkeep
 │   │   ├── best_solution_hill.PNG
 │   │   ├── genetic represantation.PNG
+│   │   ├── graph representation.PNG
+│   │   ├── population fit gen.PNG
+│   │   ├── random generated cycle.PNG
 │   │   ├── train_best_solution genetic.PNG
-│   │   └── population fit gen.PNG
-│   └── tables/                    # Numerical results
-├── experiments/
-│   ├── run_hill_climbing.py
-│   ├── run_genetic_algorithm.py
-│   └── comparative_analysis.py
-├── tests/
-│   ├── test_hill_climbing.py
-│   ├── test_genetic_algorithm.py
-│   └── test_utils.py
-├── docs/
-│   ├── report.pdf                 # Full research report
-│   └── methodology.md
-├── requirements.txt
+│   │   ├── train_evolution_hill.PNG
+│   │   ├── train_hill_climbing.PNG
+│   │   └── tsp.PNG
+│   └── tables/
+│       └── .gitkeep
+├── src/
+│   ├── .gitkeep
+│   └── FAI-LABFINAL-checkpoint.ipynb  # Main implementation notebook
+├── LICENSE
 ├── README.md
-└── LICENSE
+├── doc
+└── requirements.txt
 ```
 
 ---
